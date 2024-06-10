@@ -1,33 +1,41 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 
 export default function Page() {
   const PROJECTS = [
     {
-      name: 'Project 1',
-      description: 'Lorem ipsum dolor sit amet',
+      name: 'speed typing',
+      description:
+        'A game for testing and improving your typing skills, that includes leaderboards, selecting and replaying certain quotes and a 3D representation.',
       liveLink: 'https://google.com',
-      previewImage: '/project1.png',
+      images: ['/project1.png'],
       repoUrl: 'https://github.com',
     },
     {
       name: 'Project 2',
       description: 'Lorem ipsum dolor sit amet',
       liveLink: 'https://google.com',
-      previewImage: '/project2.png',
+      images: ['/project2.png'],
       repoUrl: 'https://github.com',
     },
     {
       name: 'Project 3',
       description: 'Lorem ipsum dolor sit amet',
       liveLink: 'https://google.com',
-      previewImage: '/project3.png',
+      images: ['/project3.png'],
       repoUrl: 'https://github.com',
     },
     {
       name: 'Project 4',
       description: 'Lorem ipsum dolor sit amet',
       liveLink: 'https://google.com',
-      previewImage: '/project4.png',
+      images: ['/project4.png', '/project4.png', '/project4.png'],
       repoUrl: 'https://github.com',
     },
   ]
@@ -41,16 +49,23 @@ export default function Page() {
             key={id}
           >
             <div className="mx-auto w-3/4 w800:w-full">
-              <AspectRatio
-                className="!-bottom-[2px] rounded-base border-2 border-black shadow-base"
-                ratio={2 / 1}
-              >
-                <img
-                  className="w-full rounded-base"
-                  src={`${project.previewImage}`}
-                  alt={project.name}
-                />
-              </AspectRatio>
+              <Carousel className="!-bottom-[2px] rounded-base border-2 border-black shadow-base">
+                <CarouselContent>
+                  {project.images.map((image, id) => (
+                    <CarouselItem key={id}>
+                      <AspectRatio ratio={2 / 1}>
+                        <img
+                          className="w-full rounded-base"
+                          src={`${image}`}
+                          alt={project.name}
+                        />
+                      </AspectRatio>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselNext />
+                <CarouselPrevious />
+              </Carousel>
 
               <div className="mt-6">
                 <h2 className="text-3xl font-bold w700:text-2xl w450:text-xl">

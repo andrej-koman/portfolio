@@ -42,31 +42,32 @@ export default function Home() {
     <TooltipProvider delayDuration={250}>
       <div className="p-10 text-xl leading-[1.7] w600:p-[30px] w600:text-lg w400:p-5 w400:text-base">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium
-          doloremque dolores accusamus rerum hic unde!
+          I am a software developer based in Maribor, Slovenia. Passionate about
+          the world of programming and sports.
         </p>
 
         <br />
 
         <p>
-          This is the windowed portfolio neobrutalism template. Check the{' '}
+          {
+            "I am currently in the middle of writing my bachelor's thesis on multi-factor authentication and working as a student for "
+          }
           <a
-            className="font-bold underline"
+            href="https://www.viar.si"
             target="_blank"
-            href="https://github.com/neobrutalism-templates/windowed-portfolio"
+            className="underline underline-offset-2 hover:text-main"
           >
-            github repo
-          </a>{' '}
-          for more info.
+            VIAR
+          </a>
+          .
         </p>
-
         <div className="mr-auto mt-10 flex w-full flex-wrap items-center gap-10">
           {links.map((link, id) => {
             return (
               <Tooltip key={id}>
                 <TooltipTrigger asChild>
                   <a target="_blank" href={link.href}>
-                    <link.icon title="" />
+                    <link.icon title="" />{' '}
                   </a>
                 </TooltipTrigger>
                 <TooltipContent sideOffset={5} align="center">
