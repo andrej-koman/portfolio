@@ -1,33 +1,28 @@
 import {
   IconType,
   SiGithub,
-  SiGmail,
   SiLinkedin,
-  SiMedium,
+  SiMaildotru,
 } from '@icons-pack/react-simple-icons'
 
 export default function Home() {
   const links: { icon: IconType; href: string }[] = [
     {
-      icon: SiGmail,
-      href: 'mailto:johndoe@gmail.com',
+      icon: SiMaildotru,
+      href: 'mailto:andrejkoman@hotmail.com',
     },
     {
       icon: SiGithub,
-      href: 'https://github.com/johndoe',
+      href: 'https://github.com/andrej-koman',
     },
     {
       icon: SiLinkedin,
-      href: 'https://www.linkedin.com/in/johndoe/',
-    },
-    {
-      icon: SiMedium,
-      href: 'https://medium.com/@johndoe',
+      href: 'https://www.linkedin.com/in/andrej-koman-424883235/',
     },
   ]
 
   return (
-    <div className="w600:p-[30px] w600:text-lg w400:p-5 w400:text-base p-10 text-xl leading-[1.7]">
+    <div className="p-10 text-xl leading-[1.7] w600:p-[30px] w600:text-lg w400:p-5 w400:text-base">
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium
         doloremque dolores accusamus rerum hic unde!
