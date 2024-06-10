@@ -41,7 +41,7 @@ export default function Nav() {
           'flex h-full items-center justify-center rounded-tr-base uppercase portrait:rounded-none',
           path === '/contact' ? 'bg-black text-white' : 'bg-main text-black',
         )}
-        href="/"
+        href="/contact"
       >
         Contact
       </Link>
