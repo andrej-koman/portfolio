@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Archivo } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/nav'
+import { Analytics } from '@vercel/analytics/react'
 
 const archivo = Archivo({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
             <Nav />
             <div className="main h-full max-h-[750px] overflow-y-auto portrait:max-h-[calc(100dvh-50px)]">
               {children}
+              <Analytics />
             </div>
           </main>
         </div>
