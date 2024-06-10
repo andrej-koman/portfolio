@@ -20,6 +20,8 @@ import {
   SiPostgresql,
   SiClerk,
   SiPosthog,
+  SiSvelte,
+  SiExpress,
 } from '@icons-pack/react-simple-icons'
 
 export default function Page() {
@@ -42,6 +44,48 @@ export default function Page() {
         { icon: SiPosthog, name: 'Posthog' },
       ],
       repoUrl: 'https://github.com/andrej-koman/hitrostnotipkanje/',
+    },
+    {
+      name: 'spotify stats',
+      description:
+        'A web application that allows you to see your Spotify statistics, such as your top artists, tracks and recently played.',
+      images: [
+        '/spotifystats/spotifystats1.PNG',
+        '/spotifystats/spotifystats2.PNG',
+        '/spotifystats/spotifystats3.PNG',
+      ],
+      techStack: [
+        {
+          icon: SiSvelte,
+          name: 'Svelte',
+        },
+        {
+          icon: SiExpress,
+          name: 'Express',
+        },
+      ],
+      repoUrl: 'https://github.com/andrej-koman/spotify-stats',
+    },
+    {
+      name: 'PixelQuest',
+      description:
+        'A web application that allows you to see your Spotify statistics, such as your top artists, tracks and recently played.',
+      images: [
+        '/spotifystats/spotifystats1.PNG',
+        '/spotifystats/spotifystats2.PNG',
+        '/spotifystats/spotifystats3.PNG',
+      ],
+      techStack: [
+        {
+          icon: SiSvelte,
+          name: 'Svelte',
+        },
+        {
+          icon: SiExpress,
+          name: 'Express',
+        },
+      ],
+      repoUrl: 'https://github.com/andrej-koman/spotify-stats',
     },
   ]
 
@@ -83,13 +127,15 @@ export default function Page() {
                   </p>
                   <div className="mt-8 flex items-center justify-between">
                     <div className="flex items-center gap-5 text-base w400:text-sm">
-                      <a
-                        className="cursor-pointer rounded-base border-2 border-black bg-main px-4 py-2 text-center uppercase shadow-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none"
-                        href={project.liveLink}
-                        target="_blank"
-                      >
-                        Visit
-                      </a>
+                      {project.liveLink && (
+                        <a
+                          className="cursor-pointer rounded-base border-2 border-black bg-main px-4 py-2 text-center uppercase shadow-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none"
+                          href={project.liveLink}
+                          target="_blank"
+                        >
+                          Visit
+                        </a>
+                      )}
                       <a
                         className="cursor-pointer rounded-base border-2 border-black bg-main px-4 py-2 text-center uppercase shadow-base transition-all hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none"
                         href={project.repoUrl}
