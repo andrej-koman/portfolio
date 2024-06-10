@@ -22,6 +22,9 @@ import {
   SiPosthog,
   SiSvelte,
   SiExpress,
+  SiGodotengine,
+  SiMongodb,
+  SiSqlite,
 } from '@icons-pack/react-simple-icons'
 
 export default function Page() {
@@ -69,23 +72,28 @@ export default function Page() {
     {
       name: 'PixelQuest',
       description:
-        'A web application that allows you to see your Spotify statistics, such as your top artists, tracks and recently played.',
+        'A short action RPG game, made for a school project. It includes a simple combat system, potion pickups, a boss fight, local and cloud saves.',
       images: [
-        '/spotifystats/spotifystats1.PNG',
-        '/spotifystats/spotifystats2.PNG',
-        '/spotifystats/spotifystats3.PNG',
+        '/pixelquest/pixelquest1.PNG',
+        '/pixelquest/pixelquest2.PNG',
+        '/pixelquest/pixelquest3.PNG',
+        '/pixelquest/pixelquest4.PNG',
       ],
       techStack: [
         {
-          icon: SiSvelte,
-          name: 'Svelte',
+          icon: SiGodotengine,
+          name: 'Godot',
         },
         {
-          icon: SiExpress,
-          name: 'Express',
+          icon: SiMongodb,
+          name: 'MongoDB',
+        },
+        {
+          icon: SiSqlite,
+          name: 'SQLite',
         },
       ],
-      repoUrl: 'https://github.com/andrej-koman/spotify-stats',
+      repoUrl: 'https://github.com/andrej-koman/pixelquest',
     },
   ]
 
@@ -103,7 +111,9 @@ export default function Page() {
                   <CarouselContent>
                     {project.images.map((image, id) => (
                       <CarouselItem key={id}>
-                        <AspectRatio ratio={2 / 1}>
+                        <AspectRatio
+                          ratio={project.name !== 'PixelQuest' ? 2 / 1 : 16 / 9}
+                        >
                           <img
                             className="w-full rounded-base"
                             src={`${image}`}
