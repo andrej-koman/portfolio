@@ -50,7 +50,7 @@ export default function Home() {
 
         <p>
           {
-            "I am currently in the middle of writing my bachelor's thesis on multi-factor authentication and working as a student for "
+            "I am currently in the middle of writing my bachelor's thesis on multi-factor authentication and working as a student developer at "
           }
           <a
             href="https://www.viar.si"
