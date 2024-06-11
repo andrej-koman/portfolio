@@ -11,8 +11,20 @@ export async function setLocale(locale: string, url: string) {
   redirect(url)
 }
 
-export async function sendEmail(formData: FormData) {
+type State = {
+  status: string
+  message: string
+}
+
+export async function sendEmail(
+  _state: State,
+  payload: FormData,
+): Promise<State> {
   // Send an email with the form data
   // using the email API
-  console.log('Sending email with form data:', formData)
+  console.log('Sending email with form data:', payload)
+  return {
+    status: 'success',
+    message: 'Email sent successfully',
+  }
 }
