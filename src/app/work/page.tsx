@@ -123,8 +123,8 @@ export default function Page() {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselNext />
-                  <CarouselPrevious />
+                  <CarouselNext className="w800:hidden" />
+                  <CarouselPrevious className="w800:hidden" />
                 </Carousel>
 
                 <div className="mt-6">

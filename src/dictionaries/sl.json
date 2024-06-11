@@ -1,0 +1,14 @@
+{
+  "Home": {
+    "title": "Domov"
+  },
+  "About": {
+    "title": "O meni"
+  },
+  "Projects": {
+    "title": "Projekti"
+  },
+  "Contact": {
+    "title": "Kontakt"
+  }
+}

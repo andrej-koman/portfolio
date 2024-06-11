@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea'
 export default function Page() {
   return (
     <div className="flex h-full flex-col items-stretch justify-between p-10 text-xl leading-[1.7] w600:p-[30px] w600:text-lg w400:p-5 w400:text-base">
-      <div className="flex flex-col gap-5">
+      <div className="mb-5 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="col-start-1 row-start-1">
             Name
