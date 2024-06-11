@@ -3,6 +3,7 @@ import { Archivo } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/nav'
 import { Analytics } from '@vercel/analytics/react'
+import LanguageSelect from '@/components/language-select'
 
 const archivo = Archivo({ subsets: ['latin'] })
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             </div>
           </main>
         </div>
+        <LanguageSelect />
       </body>
     </html>
   )
