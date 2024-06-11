@@ -10,3 +10,9 @@ export async function setLocale(locale: string, url: string) {
   // Redirect to the current page
   redirect(url)
 }
+
+export async function sendEmail(formData: FormData) {
+  // Send an email with the form data
+  // using the email API
+  console.log('Sending email with form data:', formData)
+}

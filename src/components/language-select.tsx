@@ -1,6 +1,6 @@
 'use client'
 import { Button } from './ui/button'
-import { setLocale } from './actions'
+import { setLocale } from '@/app/actions'
 import { usePathname } from 'next/navigation'
 
 export default function LanguageSelect({ locale }: { locale: string }) {

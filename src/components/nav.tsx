@@ -10,20 +10,11 @@ export default function Nav() {
   const t = useTranslations()
 
   return (
-    <nav className="grid h-[50px] grid-cols-4 rounded-tr-base border-b-4 border-b-black bg-black text-xl w600:text-lg w400:h-10 w400:text-base portrait:rounded-none">
+    <nav className="grid h-[50px] grid-cols-3 rounded-tr-base border-b-4 border-b-black bg-black text-xl w600:text-lg w400:h-10 w400:text-base portrait:rounded-none">
       <Link
         className={clsx(
           'flex h-full items-center justify-center uppercase',
           path === '/' ? 'bg-black text-white' : 'bg-main text-black',
-        )}
-        href="/"
-      >
-        {t('Home.title')}
-      </Link>
-      <Link
-        className={clsx(
-          'flex h-full items-center justify-center uppercase',
-          path === '/about' ? 'bg-black text-white' : 'bg-main text-black',
         )}
         href="/"
       >
