@@ -1,14 +1,31 @@
 {
   "Home": {
-    "title": "Domov"
+    "title": "Domov",
+    "intro_one": "Sem razvijalec programske opreme iz Maribora, Slovenija. Navdušen nad svetom programiranja in športa.",
+    "intro_two": "Trenutno sem sredi pisanja svoje diplomske naloge o večfaktorski avtentikaciji in opravljam študentsko delo kot razvijalec pri "
   },
   "About": {
     "title": "O meni"
   },
   "Projects": {
-    "title": "Projekti"
+    "title": "Projekti",
+    "visit": "Obišči",
+    "SpeedTyping": {
+      "title": "hitrostno tipkanje",
+      "description": "Igra za preizkušanje in izboljšanje vaših veščin tipkanja, ki vključuje lestvice najboljših, izbiranje in ponovno predvajanje določenih citatov ter 3D predstavitev."
+    },
+    "SpotifyStats": {
+      "description": "Spletna aplikacija, ki vam omogoča ogled vaše statistike Spotify, kot so vaši najboljši izvajalci, skladbe in nedavno predvajane."
+    },
+    "PixelQuest": {
+      "description": "Kratka akcijska RPG igra, narejena za šolski projekt. Vključuje preprost bojni sistem, zbiranje napitkov, boj s šefom, lokalno shranjevanje in shranjevanje v oblaku."
+    }
   },
   "Contact": {
-    "title": "Kontakt"
+    "title": "Kontakt",
+    "name": "Ime",
+    "email": "E-pošta",
+    "message": "Sporočilo",
+    "send": "Pošlji"
   }
 }

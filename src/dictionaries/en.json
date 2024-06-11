@@ -1,14 +1,31 @@
 {
   "Home": {
-    "title": "Home"
+    "title": "Home",
+    "intro_one": "I am a software developer based in Maribor, Slovenia. Passionate about the world of programming and sports.",
+    "intro_two": "I am currently in the middle of writing my bachelor's thesis on multi-factor authentication and working as a student developer at "
   },
   "About": {
     "title": "About"
   },
   "Projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "visit": "Visit",
+    "SpeedTyping": {
+      "title": "speed typing",
+      "description": "A game for testing and improving your typing skills, that includes leaderboards, selecting and replaying certain quotes and a 3D representation."
+    },
+    "SpotifyStats": {
+      "description": "A web application that allows you to see your Spotify statistics, such as your top artists, tracks and recently played."
+    },
+    "PixelQuest": {
+      "description": "A short action RPG game, made for a school project. It includes a simple combat system, potion pickups, a boss fight, local and cloud saves."
+    }
   },
   "Contact": {
-    "title": "Contact"
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
   }
 }

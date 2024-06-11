@@ -27,12 +27,14 @@ import {
   SiSqlite,
 } from '@icons-pack/react-simple-icons'
 
-export default function Page() {
+import { getTranslations } from 'next-intl/server'
+
+export default async function Page() {
+  const t = await getTranslations('Projects')
   const projects = [
     {
-      name: 'speed typing',
-      description:
-        'A game for testing and improving your typing skills, that includes leaderboards, selecting and replaying certain quotes and a 3D representation.',
+      name: t('SpeedTyping.title'),
+      description: t('SpeedTyping.description'),
       liveLink: 'https://www.speedtyping.org',
       images: [
         '/speedtyping/speedtyping1.PNG',
@@ -50,8 +52,7 @@ export default function Page() {
     },
     {
       name: 'spotify stats',
-      description:
-        'A web application that allows you to see your Spotify statistics, such as your top artists, tracks and recently played.',
+      description: t('SpotifyStats.description'),
       images: [
         '/spotifystats/spotifystats1.PNG',
         '/spotifystats/spotifystats2.PNG',
@@ -71,8 +72,7 @@ export default function Page() {
     },
     {
       name: 'PixelQuest',
-      description:
-        'A short action RPG game, made for a school project. It includes a simple combat system, potion pickups, a boss fight, local and cloud saves.',
+      description: t('PixelQuest.description'),
       images: [
         '/pixelquest/pixelquest1.PNG',
         '/pixelquest/pixelquest2.PNG',
@@ -143,7 +143,7 @@ export default function Page() {
                           href={project.liveLink}
                           target="_blank"
                         >
-                          Visit
+                          {t('visit')}
                         </a>
                       )}
                       <a
