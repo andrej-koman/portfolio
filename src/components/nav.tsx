@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl'
 
 export default function Nav() {
   const path = usePathname()
-
   const t = useTranslations()
 
   return (

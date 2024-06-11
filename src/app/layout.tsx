@@ -39,7 +39,7 @@ export default async function RootLayout({
               </div>
             </main>
           </div>
-          <LanguageSelect />
+          <LanguageSelect locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>
