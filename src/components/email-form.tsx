@@ -9,6 +9,8 @@ import { useFormState } from 'react-dom'
 import { useEffect } from 'react'
 import { useToast } from './ui/use-toast'
 
+import { CheckIcon } from 'lucide-react'
+
 export default function EmailForm({
   translations,
 }: {
@@ -27,15 +29,20 @@ export default function EmailForm({
     message: '',
   })
 
+  const { toast } = useToast()
+
   useEffect(() => {
     if (state.status === 'success') {
       toast({
-        description: state.message,
+        description: (
+          <div className="flex w-full flex-row items-center justify-between gap-5">
+            <CheckIcon size={24} />
+            {state.message}
+          </div>
+        ),
       })
     }
-  }, [state])
-
-  const { toast } = useToast()
+  }, [state, toast])
 
   return (
     <form action={formAction} method="post">

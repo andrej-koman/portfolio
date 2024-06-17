@@ -1,6 +1,7 @@
 'use server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import nodemailer from 'nodemailer'
 
 export async function setLocale(locale: string, url: string) {
   // Set the cookie NEXT_LOCALE to the new locale
@@ -22,7 +23,14 @@ export async function sendEmail(
 ): Promise<State> {
   // Send an email with the form data
   // using the email API
-  console.log('Sending email with form data:', payload)
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  })
   return {
     status: 'success',
     message: 'Email sent successfully',
