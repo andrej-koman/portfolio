@@ -24,6 +24,13 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <script
+          defer
+          data-domain="andrej.tech"
+          src="https://analytics.andrej.tech/js/script.js"
+        ></script>
+      </head>
       <NextIntlClientProvider messages={messages}>
         <body className={archivo.className}>
           <div className="grid h-[800px] max-h-[100dvh] w-[1000px] max-w-[1000px] grid-cols-[100px_auto] rounded-base shadow-[10px_10px_0_0_#000] outline outline-4 outline-black w600:grid-cols-[70px_auto] w500:grid-cols-1 portrait:h-[100dvh]">
