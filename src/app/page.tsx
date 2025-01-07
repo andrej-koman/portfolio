@@ -17,28 +17,37 @@ import {
 import { useTranslations } from 'next-intl'
 
 export default function Home() {
+  // Jobs
+  const jobs: {
+    name: string,
+    position: string,
+    startDate: Date,
+    endDate: Date | null
+  }[] = [];
+
+  // Contact links
   const links: {
     icon: IconType
     href: string
     title: string
     mail?: string
   }[] = [
-    {
-      icon: SiMaildotru,
-      href: 'mailto:andrejkoman@hotmail.com',
-      title: 'andrejkoman@hotmail.com',
-    },
-    {
-      icon: SiGithub,
-      href: 'https://github.com/andrej-koman',
-      title: 'andrej-koman',
-    },
-    {
-      icon: SiLinkedin,
-      href: 'https://www.linkedin.com/in/andrej-koman-424883235/',
-      title: 'Andrej Koman',
-    },
-  ]
+      {
+        icon: SiMaildotru,
+        href: 'mailto:andrejkoman@hotmail.com',
+        title: 'andrejkoman@hotmail.com',
+      },
+      {
+        icon: SiGithub,
+        href: 'https://github.com/andrej-koman',
+        title: 'andrej-koman',
+      },
+      {
+        icon: SiLinkedin,
+        href: 'https://www.linkedin.com/in/andrej-koman-424883235/',
+        title: 'Andrej Koman',
+      },
+    ]
 
   const t = useTranslations('Home')
 
@@ -46,20 +55,6 @@ export default function Home() {
     <TooltipProvider delayDuration={250}>
       <div className="p-10 text-xl leading-[1.7] w600:p-[30px] w600:text-lg w400:p-5 w400:text-base">
         <p>{t('intro_one')}</p>
-
-        <br />
-
-        <p>
-          {t('intro_two')}
-          <a
-            href="https://www.viar.si"
-            target="_blank"
-            className="underline underline-offset-2 hover:text-main"
-          >
-            VIAR
-          </a>
-          .
-        </p>
         <div className="mr-auto mt-10 flex w-full flex-wrap items-center gap-10">
           {links.map((link, id) => {
             return (
