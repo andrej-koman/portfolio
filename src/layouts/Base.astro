@@ -80,6 +80,14 @@ const vtCss = PROJECTS.map(p =>
       const motionOk = () => !matchMedia('(prefers-reduced-motion: reduce)').matches;
       const theme = () => { try { return localStorage.getItem('pf-theme') || 'dark'; } catch (e) { return 'dark'; } };
 
+      // clicking a link to the page you're already on does nothing
+      addEventListener('click', (e) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        const a = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
+        if (!a || a.target || a.hasAttribute('download') || a.origin !== location.origin) return;
+        if (a.pathname === location.pathname && !a.hash) { e.preventDefault(); e.stopImmediatePropagation(); }
+      }, true);
+
       // theme toggle with view transition (delegated: header is swapped on navigation)
       document.addEventListener('click', (e) => {
         if (!(e.target as Element).closest('#theme')) return;
@@ -130,9 +138,15 @@ const vtCss = PROJECTS.map(p =>
       }
 
       // staggered fade-in
+      // The row holding the shared title must not animate: its fade/translate would be
+      // captured mid-flight by the view transition, then jump when the animation ends.
+      let leaving = new Set<string>();
       const animate = () => {
+        const skip = [...document.querySelectorAll<HTMLElement>('[data-vt]')].filter(el => leaving.has(el.dataset.vt!));
+        leaving = new Set();
         if (!motionOk()) return;
         document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el, i) => {
+          if (skip.some(t => el.contains(t))) return;
           el.animate(
             [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
             { duration: 520, delay: Math.min(i, 10) * 55, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' },
@@ -141,7 +155,9 @@ const vtCss = PROJECTS.map(p =>
       };
 
       // client-router lifecycle
-      document.addEventListener('astro:before-swap', () => { cancelAnimationFrame(s.raf); s.raf = 0; s.y = s.t = 0; });
+      document.addEventListener('astro:before-swap', () => {
+        leaving = new Set([...document.querySelectorAll<HTMLElement>('[data-vt]')].map(el => el.dataset.vt!));
+        cancelAnimationFrame(s.raf); s.raf = 0; s.y = s.t = 0; });
       document.addEventListener('astro:after-swap', () => {
         document.documentElement.dataset.theme = theme();
         placeLine();
