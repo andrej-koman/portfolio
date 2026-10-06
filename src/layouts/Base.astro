@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { NAME, PROJECTS, type Locale } from '../data/projects';
 import { t, href } from '../data/i18n';
@@ -36,6 +37,7 @@ const vtCss = PROJECTS.map(p =>
     <script is:inline>
       try { document.documentElement.dataset.theme = localStorage.getItem('pf-theme') || 'dark'; } catch (e) {}
     </script>
+    <ClientRouter fallback="swap" />
     <style set:html={vtCss}></style>
   </head>
   <body>
@@ -75,9 +77,11 @@ const vtCss = PROJECTS.map(p =>
 
     <script>
       const motionOk = () => !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const theme = () => { try { return localStorage.getItem('pf-theme') || 'dark'; } catch (e) { return 'dark'; } };
 
-      // theme toggle with view transition
-      document.getElementById('theme')?.addEventListener('click', () => {
+      // theme toggle with view transition (delegated: header is swapped on navigation)
+      document.addEventListener('click', (e) => {
+        if (!(e.target as Element).closest('#theme')) return;
         const d = document.documentElement;
         const next = d.dataset.theme === 'dark' ? 'light' : 'dark';
         const go = () => {
@@ -99,23 +103,13 @@ const vtCss = PROJECTS.map(p =>
         line.style.width = active.offsetWidth + 'px';
         line.style.transform = `translateX(${active.offsetLeft}px)`;
       };
-      placeLine();
       addEventListener('resize', placeLine);
       document.fonts?.ready.then(placeLine).catch(() => {});
 
-      // staggered fade-in
-      if (motionOk()) {
-        document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el, i) => {
-          el.animate(
-            [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 520, delay: Math.min(i, 10) * 55, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' },
-          );
-        });
-      }
-
       // eased wheel scroll (mouse only)
+      const s = { y: 0, t: 0, raf: 0 };
       if (matchMedia('(pointer: fine)').matches) {
-        const s = { y: scrollY, t: scrollY, raf: 0 };
+        s.y = s.t = scrollY;
         const max = () => document.documentElement.scrollHeight - innerHeight;
         const step = () => {
           s.y += (s.t - s.y) * 0.12;
@@ -133,6 +127,28 @@ const vtCss = PROJECTS.map(p =>
         }, { passive: false });
         addEventListener('scroll', () => { if (!s.raf) s.y = s.t = scrollY; }, { passive: true });
       }
+
+      // staggered fade-in
+      const animate = () => {
+        if (!motionOk()) return;
+        document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el, i) => {
+          el.animate(
+            [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 520, delay: Math.min(i, 10) * 55, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' },
+          );
+        });
+      };
+
+      // client-router lifecycle
+      document.addEventListener('astro:before-swap', () => { cancelAnimationFrame(s.raf); s.raf = 0; s.y = s.t = 0; });
+      document.addEventListener('astro:after-swap', () => {
+        document.documentElement.dataset.theme = theme();
+        placeLine();
+        animate();
+      });
+      document.addEventListener('astro:page-load', placeLine);
+      animate();
+      placeLine();
     </script>
   </body>
 </html>

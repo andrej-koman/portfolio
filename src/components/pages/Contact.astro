@@ -36,21 +36,24 @@ const tr = t(lang);
 </Base>
 
 <script>
-  const root = document.querySelector<HTMLElement>('[data-email]')!;
-  const { email, copy, copied } = root.dataset as Record<string, string>;
-
-  const btn = document.getElementById('copy')!;
+  // delegated: page content is swapped by the client router, this script runs once
   let timer: number;
-  btn.addEventListener('click', () => {
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLElement>('#copy');
+    if (!btn) return;
+    const { email, copy, copied } = btn.closest<HTMLElement>('[data-email]')!.dataset as Record<string, string>;
     navigator.clipboard?.writeText(email);
     btn.textContent = copied;
     clearTimeout(timer);
     timer = window.setTimeout(() => (btn.textContent = copy), 1600);
   });
 
-  document.getElementById('form')!.addEventListener('submit', (e) => {
+  document.addEventListener('submit', (e) => {
+    const form = e.target as HTMLFormElement;
+    if (form.id !== 'form') return;
     e.preventDefault();
-    const f = new FormData(e.target as HTMLFormElement);
+    const { email } = form.closest<HTMLElement>('[data-email]')!.dataset as Record<string, string>;
+    const f = new FormData(form);
     const body = encodeURIComponent(`${f.get('msg')}\n\n— ${f.get('name')} <${f.get('email')}>`);
     location.href = `mailto:${email}?subject=${encodeURIComponent('Portfolio: ' + f.get('name'))}&body=${body}`;
     document.getElementById('sent')!.hidden = false;

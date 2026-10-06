@@ -11,7 +11,6 @@ button{all:unset;cursor:pointer}
 button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
 
 /* view transitions */
-@view-transition{navigation:auto}
 ::view-transition{pointer-events:none}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s}
 html.vt-theme::view-transition-old(root),html.vt-theme::view-transition-new(root){animation-duration:.55s;animation-timing-function:ease}
