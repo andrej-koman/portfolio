@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import ImageSlot from '../ImageSlot.astro';
+import TechChip from '../TechChip.astro';
+import { PROJECTS, localize, type Locale } from '../../data/projects';
+import { t, href } from '../../data/i18n';
+
+const { lang, slug } = Astro.props as { lang: Locale; slug: string };
+const tr = t(lang);
+const idx = PROJECTS.findIndex(p => p.slug === slug);
+const n = PROJECTS.length;
+const cur = localize(PROJECTS[idx], lang);
+const prev = localize(PROJECTS[(idx - 1 + n) % n], lang);
+const next = localize(PROJECTS[(idx + 1) % n], lang);
+const meta = 'font-family:var(--mono);font-size:11.5px;color:var(--subtle)';
+---
+<Base lang={lang} path={`projects/${slug}`} title={`${cur.name} — Andrej Koman`} description={cur.desc}>
+  <article style="display:flex;flex-direction:column;gap:48px">
+    <a data-anim data-row style="--dir:-1;align-self:flex-start;display:flex;gap:6px;font-family:var(--mono);font-size:12px;color:var(--subtle)" class="back-link" href={href(lang)}><span data-arrow>←</span>{tr.back}</a>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h1 style={`view-transition-name:title-${cur.slug};margin:0;align-self:flex-start;font-size:40px;line-height:1.1;font-weight:500;letter-spacing:-0.03em;color:var(--fg)`}>{cur.name}</h1>
+      <p data-anim style="margin:0;color:var(--muted);font-size:17px;max-width:520px;text-wrap:pretty">{cur.desc}</p>
+    </div>
+    <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0">
+      <div style="display:flex;flex-direction:column;gap:4px"><span style={meta}>{tr.year}</span><span style="color:var(--fg);font-size:14px">{cur.year}</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style={meta}>{tr.role}</span><span style="color:var(--fg);font-size:14px">{cur.role}</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style={meta}>{tr.stackLabel}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">{cur.tech.map(s => <TechChip {...s} />)}</div>
+      </div>
+    </div>
+    <div data-anim style="aspect-ratio:16/10"><ImageSlot ratio="16/10" placeholder="Cover screenshot" /></div>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 24px">
+        <span class="mono-label" style="padding-top:3px">{tr.problem}</span>
+        <p style="margin:0;grid-column:span 2;min-width:0;text-wrap:pretty">{cur.problem}</p>
+      </div>
+      <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 24px">
+        <span class="mono-label" style="padding-top:3px">{tr.built}</span>
+        <p style="margin:0;grid-column:span 2;min-width:0;text-wrap:pretty">{cur.built}</p>
+      </div>
+    </div>
+    <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+      <ImageSlot ratio="4/3" placeholder="Screenshot" />
+      <ImageSlot ratio="4/3" placeholder="Screenshot" />
+    </div>
+    <div data-anim style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:20px">
+      <a data-row style="--dir:-1;display:flex;flex-direction:column;gap:2px" href={href(lang, `projects/${prev.slug}`)}><span style={`display:flex;gap:6px;${meta}`}><span data-arrow>←</span>{tr.prev}</span><span style="font-weight:500">{prev.name}</span></a>
+      <a data-row style="--dir:1;display:flex;flex-direction:column;gap:2px;text-align:right" href={href(lang, `projects/${next.slug}`)}><span style={`display:flex;gap:6px;justify-content:flex-end;${meta}`}>{tr.next}<span data-arrow>→</span></span><span style="font-weight:500">{next.name}</span></a>
+    </div>
+  </article>
+</Base>

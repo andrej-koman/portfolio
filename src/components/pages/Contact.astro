@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import { EMAIL, type Locale } from '../../data/projects';
+import { t } from '../../data/i18n';
+
+const { lang } = Astro.props as { lang: Locale };
+const tr = t(lang);
+---
+<Base lang={lang} path="contact" title={`${tr.contactTitle} — Andrej Koman`}>
+  <section class="stack-56" data-email={EMAIL} data-copy={tr.copy} data-copied={tr.copied}>
+    <div data-anim class="stack-16">
+      <h1 class="title">{tr.contactTitle}</h1>
+      <p style="margin:0;color:var(--muted);max-width:520px;text-wrap:pretty">{tr.contactSub}</p>
+    </div>
+    <div data-anim class="stack-16">
+      <span class="mono-label">{tr.emailLabel}</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px;border:1px solid var(--line2);border-radius:10px">
+        <a class="email-link" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        <button id="copy" type="button" class="copy-btn">{tr.copy}</button>
+      </div>
+    </div>
+    <div data-anim class="mono-label" style="display:flex;align-items:center;gap:16px"><span style="flex:1;height:1px;background:var(--line)"></span>{tr.or}<span style="flex:1;height:1px;background:var(--line)"></span></div>
+    <form id="form" data-anim style="display:flex;flex-direction:column;gap:24px">
+      <span class="mono-label" style="margin-bottom:-8px">{tr.formLabel}</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px">
+        <label style="display:flex;flex-direction:column;gap:4px"><span class="mono-label">{tr.formName}</span><input class="field" name="name" required /></label>
+        <label style="display:flex;flex-direction:column;gap:4px"><span class="mono-label">{tr.formEmail}</span><input class="field" name="email" type="email" required /></label>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:4px"><span class="mono-label">{tr.formMsg}</span><textarea class="field" name="msg" rows="5" required></textarea></label>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <button type="submit" class="send-btn">{tr.formSend}</button>
+        <span id="sent" hidden style="font-size:13px;color:var(--muted)">{tr.formSent}</span>
+      </div>
+    </form>
+  </section>
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-email]')!;
+  const { email, copy, copied } = root.dataset as Record<string, string>;
+
+  const btn = document.getElementById('copy')!;
+  let timer: number;
+  btn.addEventListener('click', () => {
+    navigator.clipboard?.writeText(email);
+    btn.textContent = copied;
+    clearTimeout(timer);
+    timer = window.setTimeout(() => (btn.textContent = copy), 1600);
+  });
+
+  document.getElementById('form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target as HTMLFormElement);
+    const body = encodeURIComponent(`${f.get('msg')}\n\n— ${f.get('name')} <${f.get('email')}>`);
+    location.href = `mailto:${email}?subject=${encodeURIComponent('Portfolio: ' + f.get('name'))}&body=${body}`;
+    document.getElementById('sent')!.hidden = false;
+  });
+</script>

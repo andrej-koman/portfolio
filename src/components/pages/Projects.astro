@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import { PROJECTS, localize, type Locale } from '../../data/projects';
+import { t, href } from '../../data/i18n';
+
+const { lang } = Astro.props as { lang: Locale };
+const tr = t(lang);
+const projects = PROJECTS.map(p => localize(p, lang));
+---
+<Base lang={lang} path="">
+  <section class="stack-56">
+    <div data-anim style="display:flex;flex-direction:column;gap:12px">
+      <h1 class="title">{tr.heroTitle}</h1>
+      <p style="margin:0;color:var(--muted);max-width:520px;text-wrap:pretty">{tr.heroSub}</p>
+    </div>
+    <div class="stack-16">
+      <div data-anim class="mono-label" style="display:flex;justify-content:space-between"><span>{tr.projectsLabel}</span><span>{String(projects.length).padStart(2, '0')}</span></div>
+      <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+        {projects.map(p => (
+          <a data-anim data-row style="--dir:1" class="project-row" href={href(lang, `projects/${p.slug}`)}>
+            <span class="mono-label" style="padding-top:3px">{p.year}</span>
+            <span style="display:flex;flex-direction:column;gap:6px;min-width:0">
+              <span style={`view-transition-name:title-${p.slug};font-weight:500;color:var(--fg);align-self:flex-start`}>{p.name}</span>
+              <span style="color:var(--muted);font-size:14px;text-wrap:pretty">{p.desc}</span>
+              <span style="font-family:var(--mono);font-size:11.5px;color:var(--subtle)">{p.stackText}</span>
+            </span>
+            <span data-arrow style="font-family:var(--mono);color:var(--accent);padding-top:1px">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

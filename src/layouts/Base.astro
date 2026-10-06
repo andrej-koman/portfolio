@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+import { NAME, PROJECTS, type Locale } from '../data/projects';
+import { t, href } from '../data/i18n';
+
+interface Props {
+  lang: Locale;
+  /** Path without locale or slashes: '', 'about', 'contact', 'projects/echo' */
+  path: string;
+  title?: string;
+  description?: string;
+}
+const { lang, path, title = NAME, description = t(lang).heroSub } = Astro.props;
+const tr = t(lang);
+const other: Locale = lang === 'en' ? 'sl' : 'en';
+const section = path.startsWith('projects') ? '' : path;
+const NAV = ['', 'about', 'contact'];
+const handle = NAME.toLowerCase().replace(/\s+/g, '.');
+// Shared-element title morph between list row and detail heading.
+const vtCss = PROJECTS.map(p =>
+  `::view-transition-group(title-${p.slug}){animation-duration:.55s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}` +
+  `::view-transition-old(title-${p.slug}),::view-transition-new(title-${p.slug}){height:100%;object-fit:fill}`
+).join('');
+---
+<!doctype html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" hreflang={other} href={href(other, path)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script is:inline>
+      try { document.documentElement.dataset.theme = localStorage.getItem('pf-theme') || 'dark'; } catch (e) {}
+    </script>
+    <style set:html={vtCss}></style>
+  </head>
+  <body>
+    <div class="page">
+      <header style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <a href={href(lang)} style="font-family:var(--mono);font-size:13px;font-weight:500;color:var(--fg);display:flex;align-items:center;gap:8px">
+          <span style="color:var(--accent);margin-right:-2px">~/</span>
+          <span>{handle}</span>
+        </a>
+        <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+          <nav id="nav" style="position:relative;display:flex;gap:20px">
+            {NAV.map((key, i) => (
+              <a data-nav={key} data-active={section === key ? '' : undefined} href={href(lang, key)} style={`font-size:14px;white-space:nowrap;transition:color .15s;color:${section === key ? 'var(--fg)' : 'var(--subtle)'}`}>{tr.nav[i]}</a>
+            ))}
+            <span id="navline" aria-hidden="true" style="position:absolute;left:0;bottom:-4px;height:1px;width:0;background:var(--accent);view-transition-name:navline;pointer-events:none"></span>
+          </nav>
+          <div style="display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px">
+            <div style="display:flex;gap:6px;align-items:center">
+              <a href={href('en', path)} hreflang="en" aria-current={lang === 'en' ? 'true' : undefined} style={`color:${lang === 'en' ? 'var(--fg)' : 'var(--subtle)'}`}>EN</a>
+              <span style="color:var(--line2)">/</span>
+              <a href={href('sl', path)} hreflang="sl" aria-current={lang === 'sl' ? 'true' : undefined} style={`color:${lang === 'sl' ? 'var(--fg)' : 'var(--subtle)'}`}>SL</a>
+            </div>
+            <button id="theme" class="theme-btn" title={tr.theme} aria-label={tr.theme}>
+              <span style="width:12px;height:12px;border-radius:50%;border:1.5px solid var(--fg);background:linear-gradient(90deg,var(--fg) 50%,transparent 50%)"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main><slot /></main>
+
+      <footer style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--subtle);border-top:1px solid var(--line);padding-top:20px">
+        <span>© 2026 {NAME}</span>
+        <span>{tr.location}</span>
+      </footer>
+    </div>
+
+    <script>
+      const motionOk = () => !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // theme toggle with view transition
+      document.getElementById('theme')?.addEventListener('click', () => {
+        const d = document.documentElement;
+        const next = d.dataset.theme === 'dark' ? 'light' : 'dark';
+        const go = () => {
+          d.dataset.theme = next;
+          try { localStorage.setItem('pf-theme', next); } catch (e) {}
+        };
+        if (!document.startViewTransition || !motionOk()) return go();
+        d.classList.add('vt-theme');
+        const vt = document.startViewTransition(go);
+        vt.ready.catch(() => {});
+        vt.finished.catch(() => {}).finally(() => d.classList.remove('vt-theme'));
+      });
+
+      // nav underline under the active link
+      const placeLine = () => {
+        const nav = document.getElementById('nav'), line = document.getElementById('navline');
+        const active = nav?.querySelector<HTMLElement>('a[data-active]');
+        if (!line || !active) return;
+        line.style.width = active.offsetWidth + 'px';
+        line.style.transform = `translateX(${active.offsetLeft}px)`;
+      };
+      placeLine();
+      addEventListener('resize', placeLine);
+      document.fonts?.ready.then(placeLine).catch(() => {});
+
+      // staggered fade-in
+      if (motionOk()) {
+        document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el, i) => {
+          el.animate(
+            [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 520, delay: Math.min(i, 10) * 55, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' },
+          );
+        });
+      }
+
+      // eased wheel scroll (mouse only)
+      if (matchMedia('(pointer: fine)').matches) {
+        const s = { y: scrollY, t: scrollY, raf: 0 };
+        const max = () => document.documentElement.scrollHeight - innerHeight;
+        const step = () => {
+          s.y += (s.t - s.y) * 0.12;
+          if (Math.abs(s.t - s.y) < 0.5) { s.y = s.t; s.raf = 0; } else s.raf = requestAnimationFrame(step);
+          scrollTo(0, s.y);
+        };
+        addEventListener('wheel', (e) => {
+          if (!motionOk() || e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+          if ((e.target as Element).closest?.('textarea')) return;
+          e.preventDefault();
+          const d = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
+          if (!s.raf) s.y = s.t = scrollY;
+          s.t = Math.max(0, Math.min(max(), s.t + d));
+          if (!s.raf) s.raf = requestAnimationFrame(step);
+        }, { passive: false });
+        addEventListener('scroll', () => { if (!s.raf) s.y = s.t = scrollY; }, { passive: true });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+---
+interface Props { name: string; mask: string; variant?: 'plain' | 'chip' }
+const { name, mask, variant = 'plain' } = Astro.props;
+const icon = `width:14px;height:14px;background:var(--fg);-webkit-mask:${mask};mask:${mask}`;
+---
+{variant === 'chip' ? (
+  <span class="chip"><span style={icon}></span>{name}</span>
+) : (
+  <span title={name} style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--fg)"><span style={icon}></span>{name}</span>
+)}
