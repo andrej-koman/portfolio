@@ -16,6 +16,10 @@ const tr = t(lang);
 const other: Locale = lang === 'en' ? 'sl' : 'en';
 const section = path.startsWith('projects') ? '' : path;
 const NAV = ['', 'about', 'contact'];
+const canonical = Astro.site ? new URL(href(lang, path), Astro.site).href : undefined;
+const alt = (l: Locale) => (Astro.site ? new URL(href(l, path), Astro.site).href : href(l, path));
+const isHome = path === '';
+const jsonLd = isHome ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: NAME, jobTitle: tr.heroTitle.replace(`${NAME}, `, '').replace(/\.$/, ''), url: Astro.site?.href, address: { '@type': 'PostalAddress', addressCountry: 'SI' }, sameAs: ['https://github.com/andrej-koman'] }) : undefined;
 const handle = NAME.toLowerCase().replace(/\s+/g, '.');
 // Shared-element title morph between list row and detail heading.
 const vtCss = PROJECTS.map(p =>
@@ -31,7 +35,22 @@ const vtCss = PROJECTS.map(p =>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" hreflang={other} href={href(other, path)} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang={lang} href={alt(lang)} />
+    <link rel="alternate" hreflang={other} href={alt(other)} />
+    <link rel="alternate" hreflang="x-default" href={alt('en')} />
+    <meta name="theme-color" content="#12140f" />
+    <meta property="og:type" content={isHome ? 'website' : 'article'} />
+    <meta property="og:site_name" content={NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'sl_SI'} />
+    <meta property="og:locale:alternate" content={other === 'en' ? 'en_US' : 'sl_SI'} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />

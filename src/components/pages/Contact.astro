@@ -6,7 +6,7 @@ import { t } from '../../data/i18n';
 const { lang } = Astro.props as { lang: Locale };
 const tr = t(lang);
 ---
-<Base lang={lang} path="contact" title={`${tr.contactTitle} — Andrej Koman`}>
+<Base lang={lang} path="contact" title={`${tr.contactTitle} — Andrej Koman`} description={tr.contactSub}>
   <section class="stack-56" data-email={EMAIL} data-copy={tr.copy} data-copied={tr.copied}>
     <div data-anim class="stack-16">
       <h1 class="title">{tr.contactTitle}</h1>
