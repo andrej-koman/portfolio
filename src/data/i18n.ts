@@ -21,7 +21,7 @@ export const T = {
     contactSub: 'Open to collaborations, freelance work and full-time roles. Send me an email or use the form below.',
     copy: 'copy', copied: 'copied', cv: 'Download CV', emailLabel: 'Email', or: 'or', formLabel: 'Send a message',
     formName: 'Name', formEmail: 'Email', formMsg: 'Message', formSend: 'Send message', formSent: 'Thanks, your email app should open now.',
-    location: 'Slovenia', theme: 'Toggle theme', available: 'available for work',
+    location: 'Maribor, Slovenia', theme: 'Toggle theme', available: 'available for work',
   },
   sl: {
     nav: ['Projekti', 'O meni', 'Kontakt'],
@@ -43,7 +43,7 @@ export const T = {
     contactSub: 'Odprt za sodelovanja, samostojne projekte in redno zaposlitev. Pišite mi po e-pošti ali uporabite obrazec spodaj.',
     copy: 'kopiraj', copied: 'kopirano', cv: 'Prenesi življenjepis', emailLabel: 'E-pošta', or: 'ali', formLabel: 'Pošljite sporočilo',
     formName: 'Ime', formEmail: 'E-pošta', formMsg: 'Sporočilo', formSend: 'Pošlji sporočilo', formSent: 'Hvala, odpreti bi se moral vaš e-poštni program.',
-    location: 'Slovenija', theme: 'Preklopi temo', available: 'na voljo za delo',
+    location: 'Maribor, Slovenija', theme: 'Preklopi temo', available: 'na voljo za delo',
   },
 } as const;
 

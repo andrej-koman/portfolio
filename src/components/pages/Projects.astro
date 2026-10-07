@@ -10,11 +10,10 @@ const projects = PROJECTS.map(p => localize(p, lang));
 <Base lang={lang} path="">
   <section class="stack-56">
     <div data-anim style="display:flex;flex-direction:column;gap:12px">
-      <h1 class="title">{tr.heroTitle}</h1>
       <p style="margin:0;color:var(--muted);max-width:520px;text-wrap:pretty">{tr.heroSub}</p>
     </div>
     <div class="stack-16">
-      <div data-anim class="mono-label" style="display:flex;justify-content:space-between"><span>{tr.projectsLabel}</span><span>{String(projects.length).padStart(2, '0')}</span></div>
+      <div data-anim class="mono-label" style="display:flex;justify-content:space-between"><span class="section-label">{tr.projectsLabel}</span><span>{String(projects.length).padStart(2, '0')}</span></div>
       <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
         {projects.map(p => (
           <a data-anim data-row style="--dir:1" class="project-row" href={href(lang, `projects/${p.slug}`)}>

@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
-import { NAME, PROJECTS, type Locale } from '../data/projects';
+import { NAME, PROJECTS, GITHUB, LINKEDIN, type Locale } from '../data/projects';
 import { t, href } from '../data/i18n';
 
 interface Props {
@@ -19,7 +19,7 @@ const NAV = ['', 'about', 'contact'];
 const canonical = Astro.site ? new URL(href(lang, path), Astro.site).href : undefined;
 const alt = (l: Locale) => (Astro.site ? new URL(href(l, path), Astro.site).href : href(l, path));
 const isHome = path === '';
-const jsonLd = isHome ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: NAME, jobTitle: tr.heroTitle.replace(`${NAME}, `, '').replace(/\.$/, ''), url: Astro.site?.href, address: { '@type': 'PostalAddress', addressCountry: 'SI' }, sameAs: ['https://github.com/andrej-koman'] }) : undefined;
+const jsonLd = isHome ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: NAME, jobTitle: tr.heroTitle.replace(`${NAME}, `, '').replace(/\.$/, ''), url: Astro.site?.href, address: { '@type': 'PostalAddress', addressCountry: 'SI' }, sameAs: [GITHUB, LINKEDIN] }) : undefined;
 const handle = NAME.toLowerCase().replace(/\s+/g, '.');
 // Shared-element title morph between list row and detail heading.
 const vtCss = PROJECTS.map(p =>
@@ -90,8 +90,11 @@ const vtCss = PROJECTS.map(p =>
       <main><slot /></main>
 
       <footer style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--subtle);border-top:1px solid var(--line);padding-top:20px">
-        <span>© 2026 {NAME}</span>
-        <span>{tr.location}</span>
+        <span>© 2026</span>
+        <span style="display:flex;gap:16px">
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        </span>
       </footer>
     </div>
 

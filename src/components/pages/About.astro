@@ -15,18 +15,16 @@ const timeline = [
 <Base lang={lang} path="about" title={`${tr.aboutTitle} — Andrej Koman`} description={tr.aboutP1}>
   <section class="stack-56">
     <div data-anim class="stack-16">
-      <h1 class="title">{tr.aboutTitle}</h1>
       <p style="margin:0;max-width:560px;text-wrap:pretty">{tr.aboutP1}</p>
-      <p style="margin:0;max-width:560px;color:var(--muted);text-wrap:pretty">{tr.aboutP2}</p>
       <a href="/cv.pdf" download class="btn-outline">{tr.cv}<span style="font-family:var(--mono);font-size:12px;color:var(--accent)">↓</span></a>
     </div>
     <div data-anim class="stack-16">
-      <span class="mono-label">{tr.stackLabel}</span>
+      <span class="section-label">{tr.stackLabel}</span>
       <div style="display:flex;flex-wrap:wrap;gap:8px">{stack.map(s => <TechChip {...s} variant="chip" />)}</div>
     </div>
     {timeline.map(block => (
       <div data-anim class="stack-16">
-        <span class="mono-label">{block.label}</span>
+        <span class="section-label">{block.label}</span>
         <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
           {block.rows.map(([years, role, company]) => (
             <div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)">
@@ -38,7 +36,7 @@ const timeline = [
       </div>
     ))}
     <div data-anim class="stack-16">
-      <span class="mono-label">{tr.testLabel}</span>
+      <span class="section-label">{tr.testLabel}</span>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
         {tr.tests.map(([quote, name, role]) => (
           <figure style="margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:20px;border:1px solid var(--line2);border-radius:10px">
