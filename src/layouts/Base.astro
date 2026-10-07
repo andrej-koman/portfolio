@@ -126,6 +126,18 @@ const vtCss = PROJECTS.map(p =>
         vt.finished.catch(() => {}).finally(() => d.classList.remove('vt-theme'));
       });
 
+      // testimonial expand / collapse (delegated: content swapped on navigation)
+      document.addEventListener('click', (e) => {
+        const btn = (e.target as Element).closest<HTMLButtonElement>('[data-quote-toggle]');
+        if (!btn) return;
+        const fig = btn.closest('figure')!;
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        fig.querySelectorAll<HTMLElement>('[data-rest]').forEach(el => (el.hidden = !open));
+        fig.querySelectorAll<HTMLElement>('[data-dots]').forEach(el => (el.hidden = open));
+        btn.setAttribute('aria-expanded', String(open));
+        btn.textContent = open ? btn.dataset.less! : btn.dataset.more!;
+      });
+
       // nav underline under the active link
       const placeLine = () => {
         const nav = document.getElementById('nav'), line = document.getElementById('navline');

@@ -25,6 +25,8 @@ html.vt-theme,html.vt-theme body{transition:none}
 .mono-label{font-family:var(--mono);font-size:12px;color:var(--subtle)}
 .footer-link{color:inherit;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:4px;transition:color .15s,text-decoration-color .15s}
 .footer-link:hover{color:var(--accent);text-decoration-color:currentColor}
+.quote-toggle{align-self:flex-start;font-family:var(--mono);font-size:12px;color:var(--accent);transition:opacity .15s}
+.quote-toggle:hover{opacity:.75}
 .section-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
 .section-label::before{content:"// ";color:var(--accent)}
 h1.title{margin:0;font-size:32px;line-height:1.2;font-weight:500;letter-spacing:-0.02em;color:var(--fg);text-wrap:pretty}
