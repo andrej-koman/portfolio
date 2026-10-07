@@ -15,12 +15,19 @@ const TECH: Record<string, [string, string]> = {
   kotlin: ['Kotlin', 'kotlin'], android: ['Android', 'android'], java: ['Java', 'openjdk'], postgres: ['PostgreSQL', 'postgresql'],
   git: ['Git', 'git'], docker: ['Docker', 'docker'],
   nextjs: ['Next.js', 'nextdotjs'], cassandra: ['Cassandra', 'apachecassandra'], godot: ['Godot', 'godotengine'],
+  vue: ['Vue', 'vuedotjs'], php: ['PHP', 'php'], csharp: ['C#', 'csharp'], smalltalk: ['Smalltalk', 'smalltalk'],
+  mysql: ['MySQL', 'mysql'], elastic: ['Elasticsearch', 'elasticsearch'],
   sqlite: ['SQLite', 'sqlite'], mongodb: ['MongoDB', 'mongodb'], reactnative: ['React Native', 'react'],
 };
 
 export const tech = (k: string) => ({ name: TECH[k][0], mask: ICON(TECH[k][1]) });
 export const techName = (k: string) => TECH[k][0];
-export const ABOUT_STACK = ['ts', 'js', 'react', 'node', 'python', 'java', 'kotlin', 'postgres', 'git', 'docker'];
+export const ABOUT_STACK = [
+  { key: 'frontend', items: ['vue', 'react'] },
+  { key: 'backend', items: ['php', 'csharp', 'smalltalk'] },
+  { key: 'database', items: ['mysql', 'mongodb', 'elastic'] },
+  { key: 'devops', items: ['docker'] },
+] as const;
 
 interface ProjectText { desc: string; role: string; problem: string; built: string }
 export interface Project { slug: string; name: string; year: string; tech: string[]; en: ProjectText; sl: ProjectText }

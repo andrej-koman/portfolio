@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TechChip from '../TechChip.astro';
 import { PROJECTS, localize, type Locale } from '../../data/projects';
 import { t, href } from '../../data/i18n';
 
@@ -21,7 +22,7 @@ const projects = PROJECTS.map(p => localize(p, lang));
             <span style="display:flex;flex-direction:column;gap:6px;min-width:0">
               <span data-vt={p.slug} style={`view-transition-name:title-${p.slug};font-weight:500;color:var(--fg);align-self:flex-start`}>{p.name}</span>
               <span style="color:var(--muted);font-size:14px;text-wrap:pretty">{p.desc}</span>
-              <span style="font-family:var(--mono);font-size:11.5px;color:var(--subtle)">{p.stackText}</span>
+              <span style="display:flex;flex-wrap:wrap;gap:4px 14px">{p.tech.map(s => <TechChip {...s} variant="muted" />)}</span>
             </span>
             <span data-arrow style="font-family:var(--mono);color:var(--accent);padding-top:1px">→</span>
           </a>

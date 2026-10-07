@@ -6,7 +6,7 @@ import { t } from '../../data/i18n';
 
 const { lang } = Astro.props as { lang: Locale };
 const tr = t(lang);
-const stack = ABOUT_STACK.map(tech);
+const stack = ABOUT_STACK.map(g => ({ label: tr.stackGroups[g.key], items: g.items.map(tech) }));
 const QUOTE_WORDS = 40;
 // Splits a quote into paragraphs, keeping the first QUOTE_WORDS words visible.
 const excerpt = (quote: string) => {
@@ -24,15 +24,12 @@ const timeline = [
   { label: tr.expLabel, rows: tr.exp },
 ];
 ---
-<Base lang={lang} path="about" title={`${tr.aboutTitle} — Andrej Koman`} description={tr.aboutP1}>
+<Base lang={lang} path="about" title={`${tr.aboutTitle} — Andrej Koman`} description={tr.aboutDesc}>
   <section class="stack-56">
     <div data-anim class="stack-16">
       <p style="margin:0;max-width:560px;text-wrap:pretty">{tr.aboutP1}</p>
+      <p style="margin:0;max-width:560px;text-wrap:pretty">{tr.aboutP2}</p>
       <a href="/cv.pdf" download class="btn-outline">{tr.cv}<span style="font-family:var(--mono);font-size:12px;color:var(--accent)">↓</span></a>
-    </div>
-    <div data-anim class="stack-16">
-      <span class="section-label">{tr.stackLabel}</span>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">{stack.map(s => <TechChip {...s} variant="chip" />)}</div>
     </div>
     {timeline.map(block => (
       <div data-anim class="stack-16">
@@ -47,6 +44,17 @@ const timeline = [
         </div>
       </div>
     ))}
+    <div data-anim class="stack-16">
+      <span class="section-label">{tr.stackLabel}</span>
+      <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+        {stack.map(g => (
+          <div style="display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--line)">
+            <span class="mono-label" style="padding-top:7px">{g.label}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">{g.items.map(s => <TechChip {...s} variant="chip" />)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
     <div data-anim class="stack-16">
       <span class="section-label">{tr.testLabel}</span>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
