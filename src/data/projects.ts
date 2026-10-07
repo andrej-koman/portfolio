@@ -7,7 +7,7 @@ export const GITHUB = 'https://github.com/andrej-koman';
 export const LINKEDIN = 'https://www.linkedin.com/in/andrej-koman-424883235/';
 
 const ICON = (s: string) =>
-  `url(https://cdn.jsdelivr.net/npm/simple-icons@13/icons/${s}.svg) center/contain no-repeat`;
+  `url(/icons/${s}.svg) center/contain no-repeat`;
 
 const TECH: Record<string, [string, string]> = {
   ts: ['TypeScript', 'typescript'], js: ['JavaScript', 'javascript'], react: ['React', 'react'], node: ['Node.js', 'nodedotjs'],
