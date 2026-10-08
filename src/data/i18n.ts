@@ -53,7 +53,7 @@ export const T = {
 
 export const t = (lang: Locale) => T[lang];
 
-/** Locale-aware path. `path` has no leading slash, e.g. 'about' or 'projects/echo'. */
+/** Locale-aware path. `path` has no leading slash, e.g. 'about' or 'projects/pixelquest'. */
 export const href = (lang: Locale, path = '') => {
   const p = path ? `${path}/` : '';
   return lang === 'en' ? `/${p}` : `/sl/${p}`;

@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ImageSlot from '../ImageSlot.astro';
+import Carousel from '../Carousel.astro';
 import TechChip from '../TechChip.astro';
 import { PROJECTS, localize, type Locale } from '../../data/projects';
 import { t, href } from '../../data/i18n';
@@ -28,7 +28,7 @@ const meta = 'font-family:var(--mono);font-size:11.5px;color:var(--subtle)';
         <div style="display:flex;flex-wrap:wrap;gap:10px">{cur.tech.map(s => <TechChip {...s} />)}</div>
       </div>
     </div>
-    <div data-anim style="aspect-ratio:16/10"><ImageSlot ratio="16/10" placeholder="Cover screenshot" /></div>
+    <div data-anim><Carousel images={cur.images} alt={`${cur.name} screenshot`} placeholder="Cover screenshot" /></div>
     <div style="display:flex;flex-direction:column;gap:28px">
       <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 24px">
         <span class="section-label" style="padding-top:3px">{tr.problem}</span>
@@ -38,10 +38,6 @@ const meta = 'font-family:var(--mono);font-size:11.5px;color:var(--subtle)';
         <span class="section-label" style="padding-top:3px">{tr.built}</span>
         <p style="margin:0;grid-column:span 2;min-width:0;text-wrap:pretty">{cur.built}</p>
       </div>
-    </div>
-    <div data-anim style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
-      <ImageSlot ratio="4/3" placeholder="Screenshot" />
-      <ImageSlot ratio="4/3" placeholder="Screenshot" />
     </div>
     <div data-anim style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:20px">
       <a data-row style="--dir:-1;display:flex;flex-direction:column;gap:2px" href={href(lang, `projects/${prev.slug}`)}><span style={`display:flex;gap:6px;${meta}`}><span data-arrow>←</span>{tr.prev}</span><span style="font-weight:500">{prev.name}</span></a>
