@@ -6,7 +6,7 @@ import { t, href } from '../data/i18n';
 
 interface Props {
   lang: Locale;
-  /** Path without locale or slashes: '', 'about', 'contact', 'projects/pixelquest' */
+  /** Path without locale or slashes: '', 'projects', 'contact', 'projects/pixelquest' */
   path: string;
   title?: string;
   description?: string;
@@ -14,8 +14,8 @@ interface Props {
 const { lang, path, title = NAME, description = t(lang).heroSub } = Astro.props;
 const tr = t(lang);
 const other: Locale = lang === 'en' ? 'sl' : 'en';
-const section = path.startsWith('projects') ? '' : path;
-const NAV = ['', 'about', 'contact'];
+const section = path.startsWith('projects') ? 'projects' : path;
+const NAV = ['', 'projects', 'contact'];
 const canonical = Astro.site ? new URL(href(lang, path), Astro.site).href : undefined;
 const alt = (l: Locale) => (Astro.site ? new URL(href(l, path), Astro.site).href : href(l, path));
 const isHome = path === '';

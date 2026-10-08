@@ -2,7 +2,7 @@ import type { Locale } from './projects';
 
 export const T = {
   en: {
-    nav: ['Projects', 'About', 'Contact'],
+    nav: ['About', 'Projects', 'Contact'],
     heroTitle: 'Andrej Koman, software developer.',
     heroSub: 'A small selection of apps, games and models I have built, from school projects to things made just for fun.',
     projectsLabel: 'Selected projects',
@@ -26,7 +26,7 @@ export const T = {
     location: 'Maribor, Slovenia', theme: 'Toggle theme', available: 'available for work',
   },
   sl: {
-    nav: ['Projekti', 'O meni', 'Kontakt'],
+    nav: ['O meni', 'Projekti', 'Kontakt'],
     heroTitle: 'Andrej Koman, razvijalec programske opreme.',
     heroSub: 'Izbor aplikacij, iger in modelov, ki sem jih razvil, od šolskih projektov do stvari, narejenih za zabavo.',
     projectsLabel: 'Izbrani projekti',
@@ -53,7 +53,7 @@ export const T = {
 
 export const t = (lang: Locale) => T[lang];
 
-/** Locale-aware path. `path` has no leading slash, e.g. 'about' or 'projects/pixelquest'. */
+/** Locale-aware path. `path` has no leading slash, e.g. 'projects' or 'projects/pixelquest'. */
 export const href = (lang: Locale, path = '') => {
   const p = path ? `${path}/` : '';
   return lang === 'en' ? `/${p}` : `/sl/${p}`;
