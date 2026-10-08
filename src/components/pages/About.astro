@@ -49,8 +49,8 @@ const timeline = [
       <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
         {stack.map(g => (
           <div style="display:grid;grid-template-columns:minmax(96px,150px) minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--line)">
-            <span class="mono-label" style="padding-top:7px">{g.label}</span>
-            <div style="display:flex;flex-wrap:wrap;gap:8px">{g.items.map(s => <TechChip {...s} variant="chip" />)}</div>
+            <span class="mono-label" style="padding-top:2px">{g.label}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:6px 20px;padding-top:2px">{g.items.map(s => <TechChip {...s} />)}</div>
           </div>
         ))}
       </div>
