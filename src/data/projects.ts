@@ -31,18 +31,27 @@ export const ABOUT_STACK = [
 ] as const;
 
 interface ProjectText { desc: string; role: string; problem: string; built: string }
-export interface Project { slug: string; name: string; year: string; tech: string[]; images?: string[]; en: ProjectText; sl: ProjectText }
+export interface Project { slug: string; name: string; year: string; tech: string[]; images?: string[]; links?: { web?: string; github?: string }; en: ProjectText; sl: ProjectText }
 
 export const PROJECTS: Project[] = [
-  { slug: 'mojcaos', name: 'MojcaOS', year: '2026', tech: ['godot'],
+  { slug: 'mojcaos', name: 'MojcaOS', year: '2026', tech: ['csharp', 'godot'],
     en: { desc: 'A desktop simulator made for my girlfriend, with her favorite colors, pictures and games.', role: 'Developer, personal project',
       problem: 'A personal gift: something more fun and more personal than a card.',
-      built: 'A desktop-style simulator in Godot, filled with her favorite colors and pictures, and a few small games made just for her.' },
+      built: 'A desktop-style simulator built with the Godot engine and scripted in C#, filled with her favorite colors and pictures, and a few small games made just for her.' },
     sl: { desc: 'Simulator namizja, narejen za moje dekle, z njenimi najljubšimi barvami, slikami in igrami.', role: 'Razvijalec, osebni projekt',
       problem: 'Osebno darilo: nekaj bolj zabavnega in osebnega kot voščilnica.',
-      built: 'Simulator v slogu namizja, narejen v Godotu, poln njenih najljubših barv in slik ter nekaj majhnih iger, narejenih samo zanjo.' } },
+      built: 'Simulator v slogu namizja, narejen z igralnim pogonom Godot in programiran v C#, poln njenih najljubših barv in slik ter nekaj majhnih iger, narejenih samo zanjo.' } },
+  { slug: 'diskopripajku', name: 'Disko pri Pajku', year: '2024', tech: ['nextjs', 'ts', 'postgres', 'csharp'],
+    links: { web: 'https://diskopripajku.si' },
+    en: { desc: 'A photo gallery website for the Halloween party my girlfriend and I throw every year.', role: 'Solo developer, personal project',
+      problem: 'Every year we host a Halloween party for around 40 people, and sending photos around to everyone was messy.',
+      built: 'A Next.js gallery website at diskopripajku.si where all guests can browse and download the photos from the party, backed by PostgreSQL. To keep browsing fast, I wrote a script that generates three sizes of every image, and downloading always gives you the original full-quality photo.' },
+    sl: { desc: 'Spletna galerija fotografij za noč čarovnic, ki jo z dekletom organiziram vsako leto.', role: 'Samostojni razvijalec, osebni projekt',
+      problem: 'Vsako leto pripravljava zabavo za noč čarovnic za okoli 40 ljudi, razpošiljanje fotografij vsem pa je bilo nepregledno.',
+      built: 'Galerija v Next.js na diskopripajku.si, kjer si vsi gostje lahko ogledajo in prenesejo fotografije z zabave, podatki pa so shranjeni v PostgreSQL. Za hitrejše brskanje sem napisal skripto, ki ustvari tri velikosti vsake slike, pri prenosu pa gost vedno dobi izvirno fotografijo v polni kakovosti.' } },
   { slug: 'pixelquest', name: 'PixelQuest', year: '2024', tech: ['godot', 'sqlite', 'mongodb'],
     images: [1, 2, 3, 4].map(i => `/pixelquest/pixelquest${i}.PNG`),
+    links: { github: 'https://github.com/andrej-koman/pixelquest' },
     en: { desc: 'A mobile game made in Godot for a school course project.', role: 'Developer, school project',
       problem: 'The assignment for the mobile course was to build a mobile app. I took it as a challenge and made a game with levels and a boss fight instead.',
       built: 'A mobile game in Godot that stores data locally in SQLite and keeps cloud saves in MongoDB.' },
@@ -51,6 +60,7 @@ export const PROJECTS: Project[] = [
       built: 'Mobilna igra v Godotu, ki podatke lokalno hrani v SQLite, shranjene igre v oblaku pa v MongoDB.' } },
   { slug: 'spotifystats', name: 'Spotify Stats', year: '2023', tech: ['svelte', 'express'],
     images: [1, 2, 3].map(i => `/spotifystats/spotifystats${i}.PNG`),
+    links: { github: 'https://github.com/andrej-koman/spotify-stats' },
     en: { desc: 'A web app that shows your Spotify statistics: top artists, top tracks and recently played.', role: 'Solo developer, personal project',
       problem: 'Spotify does not give you an easy way to look at your own listening habits whenever you want.',
       built: 'A Svelte front end with an Express back end that connects to your Spotify account and shows your top artists, top tracks and recently played songs.' },
@@ -69,7 +79,7 @@ export const PROJECTS: Project[] = [
 
 /** Project resolved for one locale, with tech expanded. */
 export const localize = (p: Project, lang: Locale) => ({
-  slug: p.slug, name: p.name, year: p.year, images: p.images ?? [],
+  slug: p.slug, name: p.name, year: p.year, images: p.images ?? [], links: p.links ?? {},
   tech: p.tech.map(tech),
   stackText: p.tech.map(techName).join(' · '),
   ...p[lang],
