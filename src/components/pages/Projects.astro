@@ -18,7 +18,6 @@ const projects = PROJECTS.map(p => localize(p, lang));
       <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
         {projects.map(p => (
           <a data-anim data-row style="--dir:1" class="project-row" href={href(lang, `projects/${p.slug}`)}>
-            <span class="mono-label" style="padding-top:3px">{p.year}</span>
             <span style="display:flex;flex-direction:column;gap:6px;min-width:0">
               <span data-vt={p.slug} style={`view-transition-name:title-${p.slug};font-weight:500;color:var(--fg);align-self:flex-start`}>{p.name}</span>
               <span style="color:var(--muted);font-size:14px;text-wrap:pretty">{p.desc}</span>

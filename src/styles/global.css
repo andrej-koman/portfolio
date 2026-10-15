@@ -34,7 +34,7 @@ h1.title{margin:0;font-size:32px;line-height:1.2;font-weight:500;letter-spacing:
 /* hover / focus states */
 .theme-btn{width:28px;height:28px;display:grid;place-items:center;border-radius:50%}
 .theme-btn:hover{background:var(--soft)}
-.project-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);color:var(--body)}
+.project-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);color:var(--body)}
 .project-row:hover{color:var(--body);background:linear-gradient(90deg,transparent,var(--soft) 50%,transparent)}
 .back-link:hover{color:var(--accent)}
 .btn-outline{align-self:flex-start;margin-top:8px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;padding:10px 18px;border-radius:8px;border:1px solid var(--line2);color:var(--fg)}
